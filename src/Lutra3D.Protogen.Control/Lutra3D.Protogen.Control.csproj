@@ -5,6 +5,19 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+  <LangVersion>preview</LangVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Libraries\rpi-rgb-led-matrix\bindings\c#\RPiRgbLEDMatrix.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Emotions\" />
+  </ItemGroup>
 
 </Project>
