@@ -7,11 +7,13 @@ using Color = RPiRgbLEDMatrix.Color;
 using Image = SixLabors.ImageSharp.Image;
 using System.Reflection;
 
-using var matrix = new RGBLedMatrix(32, 2, 1);
-var canvas = matrix.CreateOffscreenCanvas();
 
 var gifBytes = await LoadGifAsync("neutral");
 using var image = Image.Load<Rgb24>(gifBytes);
+
+using var matrix = new RGBLedMatrix(32, 2, 1);
+var canvas = matrix.CreateOffscreenCanvas();
+
 image.Mutate(o => o.Resize(canvas.Width, canvas.Height));
 
 var running = true;
