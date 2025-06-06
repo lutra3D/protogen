@@ -4,8 +4,6 @@ using RPiRgbLEDMatrix;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -26,6 +24,7 @@ builder.Services.AddSingleton<ProtogenManager>();
 builder.Services.AddHostedService<LedMatrixRedrawHostedService>();
 
 builder.Services.AddControllers();
+builder.Services.AddLogging();
 
 var app = builder.Build();
 
