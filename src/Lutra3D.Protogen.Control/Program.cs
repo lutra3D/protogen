@@ -11,7 +11,15 @@ using System.Reflection;
 var gifBytes = await LoadGifAsync("neutral");
 using var image = Image.Load<Rgb24>(gifBytes);
 
-using var matrix = new RGBLedMatrix(32, 2, 1);
+var options = new RGBLedMatrixOptions
+{
+    ChainLength=2,
+    Parallel = 1,
+    Cols = 64,
+    HardwareMapping = "adafruit-hat"
+};
+
+using var matrix = new RGBLedMatrix(options);
 var canvas = matrix.CreateOffscreenCanvas();
 
 image.Mutate(o => o.Resize(canvas.Width, canvas.Height));
