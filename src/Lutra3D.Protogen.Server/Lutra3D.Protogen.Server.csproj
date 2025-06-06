@@ -8,10 +8,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Remove="Emotions\happy.gif" />
 		<None Remove="Emotions\neutral.gif" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<EmbeddedResource Include="Emotions\happy.gif" />
 		<EmbeddedResource Include="Emotions\neutral.gif" />
 	</ItemGroup>
 

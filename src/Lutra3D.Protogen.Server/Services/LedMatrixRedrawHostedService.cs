@@ -10,14 +10,16 @@ public class LedMatrixRedrawHostedService(RGBLedMatrix matrix, ProtogenManager p
     {
         await protogenManager.ChangeEmotionAsync("neutral", ct);
 
+        await Task.Yield(); //Give App chance to init
+
         var canvas = matrix.CreateOffscreenCanvas();
 
         var frame = -1;
 
-        var frames = await protogenManager.GetFramesAsync(ct);
-
         while (!ct.IsCancellationRequested)
         {
+            var frames = await protogenManager.GetFramesAsync(ct);
+
             frame = (frame + 1) % frames.Length;
 
             var data = MemoryMarshal.Cast<Rgb24, Color>(frames[frame].Pixels.Span);
