@@ -48,7 +48,7 @@ public class ProtogenManager : IDisposable
     private async Task<byte[]> LoadGifAsync(string emotion, CancellationToken cancellationToken = default)
     {
         var assembly = Assembly.GetExecutingAssembly();
-        var resourceName = $"Lutra3D.Protogen.Control.Emotions.{emotion}.gif";
+        var resourceName = $"Lutra3D.Protogen.Server.Emotions.{emotion}.gif";
 
         using var stream = assembly.GetManifestResourceStream(resourceName)
             ?? throw new InvalidOperationException($"Could not load emotion {emotion}");
