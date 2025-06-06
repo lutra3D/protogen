@@ -1,0 +1,6 @@
+@Lutra3D.Protogen.Server_HostAddress = http://localhost:5063
+
+GET {{Lutra3D.Protogen.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

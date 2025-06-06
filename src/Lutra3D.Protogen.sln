@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RPiRgbLEDMatrix", "Libraries\rpi-rgb-led-matrix\bindings\c#\RPiRgbLEDMatrix.csproj", "{983B9AED-4923-480E-9231-B552EA726983}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lutra3D.Protogen.Server", "Lutra3D.Protogen.Server\Lutra3D.Protogen.Server.csproj", "{FD62A30C-F221-4947-9E59-A33773F5316C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{983B9AED-4923-480E-9231-B552EA726983}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{983B9AED-4923-480E-9231-B552EA726983}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{983B9AED-4923-480E-9231-B552EA726983}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD62A30C-F221-4947-9E59-A33773F5316C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD62A30C-F221-4947-9E59-A33773F5316C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD62A30C-F221-4947-9E59-A33773F5316C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD62A30C-F221-4947-9E59-A33773F5316C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
