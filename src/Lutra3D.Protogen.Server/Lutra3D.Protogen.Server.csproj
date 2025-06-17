@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
-		<TargetFramework>net9.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<LangVersion>preview</LangVersion>
@@ -10,6 +10,12 @@
 	<ItemGroup>
 		<None Remove="Emotions\happy.gif" />
 		<None Remove="Emotions\neutral.gif" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="librpi_ws281x.so">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 
 	<ItemGroup>
