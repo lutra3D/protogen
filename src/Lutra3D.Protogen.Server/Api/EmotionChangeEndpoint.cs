@@ -13,4 +13,3 @@ public class EmotionChangeEndpoint(ILogger<EmotionChangeEndpoint> logger, Protog
         logger.LogInformation($"Emotion changed to {emotionName}");
     }
 }
-

@@ -11,6 +11,33 @@ public class ProtogenManager : IDisposable
     private static readonly SemaphoreSlim ConcurencySemaphore = new(1, 1);
 
     public Image<Rgb24>? CurrentImage { get; private set; }
+    public double FanSpeedFraction { get; private set; } = 0.5;
+
+    public async Task<double> GetFanSpeedFractionAsync(CancellationToken cancellationToken) 
+    {
+        await ConcurencySemaphore.WaitAsync(cancellationToken);
+        try
+        {
+            return FanSpeedFraction;
+        }
+        finally
+        {
+            ConcurencySemaphore.Release();
+        }
+    }
+
+    public async Task SetFanSpeedFractionAsync(double fraction, CancellationToken cancellationToken)
+    {
+        await ConcurencySemaphore.WaitAsync(cancellationToken);
+        try
+        {
+            FanSpeedFraction = fraction;
+        }
+        finally
+        {
+            ConcurencySemaphore.Release();
+        }
+    }
 
     public async Task ChangeEmotionAsync(string emotion, CancellationToken cancellationToken)
     {
