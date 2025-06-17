@@ -28,7 +28,7 @@
 		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.9" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
 		<PackageReference Include="Ardalis.ApiEndpoints" Version="4.1.0" />
-		<PackageReference Include="nanoFramework.System.Device.Pwm" Version="1.1.23" />
+		<PackageReference Include="System.Device.Gpio" Version="4.0.1" />
 		<PackageReference Include="ws281x.Net" Version="1.0.6" />
 	</ItemGroup>
 

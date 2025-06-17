@@ -18,7 +18,7 @@ public class LedMatrixRedrawHostedService(RGBLedMatrix matrix, ProtogenManager p
 
         while (!ct.IsCancellationRequested)
         {
-            var frames = await protogenManager.GetFramesAsync(ct);
+            var frames = await protogenManager.GetVisorFramesAsync(ct);
 
             frame = (frame + 1) % frames.Length;
 

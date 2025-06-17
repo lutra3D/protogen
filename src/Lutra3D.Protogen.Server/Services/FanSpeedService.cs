@@ -8,7 +8,7 @@ public class FanSpeedService(ProtogenManager protogenManager) : BackgroundServic
     {
         await Task.Yield(); //Give App chance to init
 
-        using PwmChannel pwmChannel = PwmChannel.CreateFromPin(19, frequency: 25000, dutyCyclePercentage: 0.5);
+        using PwmChannel pwmChannel = PwmChannel.Create(0, 19, frequency: 25000, dutyCyclePercentage: 0.5);
 
         // Start the PWM signal
         pwmChannel.Start();

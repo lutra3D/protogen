@@ -1,4 +1,6 @@
-﻿namespace Lutra3D.Protogen.Server.Services;
+﻿using System.Drawing;
+
+namespace Lutra3D.Protogen.Server.Services;
 
 public class NeoPixelRedrawHostedService(ProtogenManager protogenManager) : BackgroundService()
 {
@@ -6,22 +8,27 @@ public class NeoPixelRedrawHostedService(ProtogenManager protogenManager) : Back
     {
         var neopixel = new ws281x.Net.Neopixel(ledCount: 256, pin: 25);
 
-        // You can also choose a custom color order
-        neopixel = new ws281x.Net.Neopixel(ledCount: 42, pin: 18, stripType: rpi_ws281x.WS2811_STRIP_RBG);
-
-        // Always initialize the wrapper first
         neopixel.Begin();
 
-        // Set color of all LEDs to red
-        for (var i = 0; i < neopixel.GetNumberOfPixels(); i++)
+        var frame = -1;
+        while (!ct.IsCancellationRequested)
         {
-            neopixel.SetPixelColor(i, System.Drawing.Color.Red);
+            var image = await protogenManager.GetSidesPixelAsync(ct);
+
+            frame = frame++;
+            frame %= image.Height;
+
+            for (var pixelIndex = 0; pixelIndex < neopixel.GetNumberOfPixels(); pixelIndex++)
+            {
+                var pixel = image.Pixels.ElementAtOrDefault(pixelIndex + frame * image.Width);
+
+                neopixel.SetPixelColor(pixelIndex, Color.FromArgb(pixel.R, pixel.G, pixel.B));
+            }
+
+            neopixel.Show();
+            await Task.Delay(200, ct);
         }
 
-        // Apply changes to the led
-        neopixel.Show();
-
-        // Dispose after use
         neopixel.Dispose();
     }
 }

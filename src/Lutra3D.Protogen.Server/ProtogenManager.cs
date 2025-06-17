@@ -5,12 +5,15 @@ using System.Reflection;
 namespace Lutra3D.Protogen.Server;
 
 public record AnimationFrame(Memory<Rgb24> Pixels, int Delay);
+public record PixelImage(int Width, int Height, Rgb24[] Pixels);
 
 public class ProtogenManager : IDisposable
 {
     private static readonly SemaphoreSlim ConcurencySemaphore = new(1, 1);
 
-    public Image<Rgb24>? CurrentImage { get; private set; }
+    public Image<Rgb24>? CurrentVisorImage { get; private set; }
+    public Image<Rgb24>? CurrentSidesImage { get; private set; }
+
     public double FanSpeedFraction { get; private set; } = 0.5;
 
     public async Task<double> GetFanSpeedFractionAsync(CancellationToken cancellationToken) 
@@ -44,8 +47,8 @@ public class ProtogenManager : IDisposable
         await ConcurencySemaphore.WaitAsync(cancellationToken);
         try
         {
-            var gifBytes = await LoadGifAsync(emotion);
-            CurrentImage = Image.Load<Rgb24>(gifBytes);
+            CurrentVisorImage = await LoadImageAsync($"{emotion}.gif");
+            CurrentSidesImage = await LoadImageAsync($"{emotion}.bmp");
         }
         finally
         {
@@ -53,14 +56,31 @@ public class ProtogenManager : IDisposable
         }
     }
 
-    public async Task<AnimationFrame[]> GetFramesAsync(CancellationToken cancellationToken)
+    public async Task<PixelImage> GetSidesPixelAsync(CancellationToken cancellationToken)
     {
-        if(CurrentImage is null) { return []; }
+        if (CurrentSidesImage is null) { return new PixelImage(0, 0, []); }
 
         await ConcurencySemaphore.WaitAsync(cancellationToken);
         try
         {
-            return CurrentImage.Frames
+            var pixels = new Span<Rgb24>();
+            CurrentSidesImage.CopyPixelDataTo(pixels);
+            return new PixelImage(CurrentSidesImage.Width, CurrentSidesImage.Height, [.. pixels]);
+        }
+        finally
+        {
+            ConcurencySemaphore.Release();
+        }
+    }
+
+    public async Task<AnimationFrame[]> GetVisorFramesAsync(CancellationToken cancellationToken)
+    {
+        if(CurrentVisorImage is null) { return []; }
+
+        await ConcurencySemaphore.WaitAsync(cancellationToken);
+        try
+        {
+            return CurrentVisorImage.Frames
            .Select(f => new AnimationFrame(
                f.DangerousTryGetSinglePixelMemory(out var memory) ? memory : throw new("Could not get pixel buffer"),
                f.Metadata.GetGifMetadata().FrameDelay * 10
@@ -71,14 +91,21 @@ public class ProtogenManager : IDisposable
             ConcurencySemaphore.Release();
         }
     }
+    
+    private async Task<Image<Rgb24>> LoadImageAsync(string fileName)
+    {
+        var gifBytes = await LoadResourceAsync(fileName);
+        return Image.Load<Rgb24>(gifBytes);
+    }
 
-    private async Task<byte[]> LoadGifAsync(string emotion, CancellationToken cancellationToken = default)
+
+    private async Task<byte[]> LoadResourceAsync(string fileName, CancellationToken cancellationToken = default)
     {
         var assembly = Assembly.GetExecutingAssembly();
-        var resourceName = $"Lutra3D.Protogen.Server.Emotions.{emotion}.gif";
+        var resourceName = $"Lutra3D.Protogen.Server.Emotions.{fileName}";
 
         using var stream = assembly.GetManifestResourceStream(resourceName)
-            ?? throw new InvalidOperationException($"Could not load emotion {emotion}");
+            ?? throw new InvalidOperationException($"Could not load emotion {fileName}");
         using var memoryStream = new MemoryStream();
         await stream.CopyToAsync(memoryStream, cancellationToken);
         return memoryStream.ToArray();
@@ -86,7 +113,7 @@ public class ProtogenManager : IDisposable
 
     public void Dispose()
     {
-        CurrentImage?.Dispose();
+        CurrentVisorImage?.Dispose();
     }
 }
 
