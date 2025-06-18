@@ -31,7 +31,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Libraries\rpi-rgb-led-matrix\bindings\c#\RPiRgbLEDMatrix.csproj" />
-		<ProjectReference Include="..\Libraries\rpi_ws281x.Net\src\ws281x.Net\ws281x.Net.csproj" />
+		<ProjectReference Include="..\Libraries\rpi-ws281x-csharp\src\rpi_ws281x\rpi_ws281x.csproj" />
 	</ItemGroup>
 
 </Project>

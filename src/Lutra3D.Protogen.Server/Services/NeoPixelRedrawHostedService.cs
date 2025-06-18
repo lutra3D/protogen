@@ -1,34 +1,24 @@
-﻿using System.Drawing;
+﻿using rpi_ws281x;
+using System.Drawing;
 
 namespace Lutra3D.Protogen.Server.Services;
 
 public class NeoPixelRedrawHostedService(ProtogenManager protogenManager) : BackgroundService()
 {
-    protected sealed override async Task ExecuteAsync(CancellationToken ct)
+    protected sealed override Task ExecuteAsync(CancellationToken ct)
     {
-        var neopixel = new ws281x.Net.Neopixel(ledCount: 256, pin: 25);
+        var settings = Settings.CreateDefaultSettings();
+        settings.Channels[0] = new Channel(24, 18, 128, false, StripType.WS2812_STRIP);
 
-        neopixel.Begin();
-
-        var frame = -1;
-        while (!ct.IsCancellationRequested)
+        using (var rpi = new WS281x(settings))
         {
-            var image = await protogenManager.GetSidesPixelAsync(ct);
+            //Set the color of the first LED of channel 0 to blue
+            rpi.SetLEDColor(0, 0, Color.Blue);
+            //Set the color of the second LED of channel 0 to red
+            rpi.SetLEDColor(0, 1, Color.Red);
 
-            frame = frame++;
-            frame %= image.Height;
-
-            for (var pixelIndex = 0; pixelIndex < neopixel.GetNumberOfPixels(); pixelIndex++)
-            {
-                var pixel = image.Pixels.ElementAtOrDefault(pixelIndex + frame * image.Width);
-
-                neopixel.SetPixelColor(pixelIndex, Color.FromArgb(pixel.R, pixel.G, pixel.B));
-            }
-
-            neopixel.Show();
-            await Task.Delay(200, ct);
+            rpi.Render();
         }
-
-        neopixel.Dispose();
+        return Task.CompletedTask;
     }
 }
