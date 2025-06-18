@@ -1,6 +1,6 @@
 [submodule "src/Libraries/rpi-rgb-led-matrix"]
 	path = src/Libraries/rpi-rgb-led-matrix
 	url = https://github.com/hzeller/rpi-rgb-led-matrix.git
-[submodule "src/Libraries/rpi_ws281x.Net"]
-	path = src/Libraries/rpi_ws281x.Net
-	url = https://github.com/klemmchr/rpi_ws281x.Net.git
+[submodule "src/Libraries/rpi-ws281x-csharp"]
+	path = src/Libraries/rpi-ws281x-csharp
+	url = https://github.com/rpi-ws281x/rpi-ws281x-csharp.git
