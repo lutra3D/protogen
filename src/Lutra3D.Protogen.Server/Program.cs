@@ -22,7 +22,7 @@ builder.Services.AddSingleton((sp) =>
 
 builder.Services.AddSingleton<ProtogenManager>();
 builder.Services.AddHostedService<LedMatrixRedrawHostedService>();
-builder.Services.AddHostedService<FanSpeedService>();
+//builder.Services.AddHostedService<FanSpeedService>();
 builder.Services.AddHostedService<NeoPixelRedrawHostedService>();
 
 builder.Services.AddControllers();
