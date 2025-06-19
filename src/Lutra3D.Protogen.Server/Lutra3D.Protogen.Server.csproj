@@ -31,7 +31,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Libraries\rpi-rgb-led-matrix\bindings\c#\RPiRgbLEDMatrix.csproj" />
-		<ProjectReference Include="..\Libraries\rpi-ws281x-csharp\src\rpi_ws281x\rpi_ws281x.csproj" />
+		<PackageReference Include="Iot.Device.Bindings" Version="4.0.1" />
 	</ItemGroup>
 
 </Project>
