@@ -4,22 +4,20 @@ using System.Drawing;
 
 namespace Lutra3D.Protogen.Server.Services;
 
-public class NeoPixelRedrawHostedService(ProtogenManager protogenManager) : BackgroundService()
+public class NeoPixelRedrawHostedService(WS281x neopixels, ProtogenManager protogenManager) : BackgroundService()
 {
-    protected sealed override Task ExecuteAsync(CancellationToken ct)
+    protected async sealed override Task ExecuteAsync(CancellationToken ct)
     {
-        var settings = Settings.CreateDefaultSettings();
-        settings.Channels[0] = new Channel(24, 18, 128, false, StripType.WS2812_STRIP);
+        await Task.Yield();
 
-        using (var rpi = new WS281x(settings))
+        var pixel = 0;
+        while (!ct.IsCancellationRequested)
         {
-            //Set the color of the first LED of channel 0 to blue
-            rpi.SetLEDColor(0, 0, Color.Blue);
-            //Set the color of the second LED of channel 0 to red
-            rpi.SetLEDColor(0, 1, Color.Red);
-
-            rpi.Render();
+            neopixels.SetLEDColor(0, pixel++, Color.Blue);
+            neopixels.SetLEDColor(0, pixel++, Color.Red);
+            neopixels.Render();
+            pixel %= 25;
         }
-        return Task.CompletedTask;
+
     }
 }
