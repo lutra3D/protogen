@@ -23,6 +23,14 @@ builder.Services.AddSingleton((sp) =>
     return new RGBLedMatrix(options);
 });
 
+builder.Services.AddSingleton((sp) =>
+{
+    var neopixel = new ws281x.Net.Neopixel(ledCount: 24, pin: 18);
+    neopixel.Begin();
+    return neopixel;
+});
+
+
 builder.Services.AddSingleton<ProtogenManager>();
 builder.Services.AddHostedService<LedMatrixRedrawHostedService>();
 //builder.Services.AddHostedService<FanSpeedService>();
