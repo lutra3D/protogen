@@ -6,7 +6,7 @@ public class NeoPixelRedrawHostedService(ProtogenManager protogenManager) : Back
 {
     protected override Task ExecuteAsync(CancellationToken ct)
     {
-        var neopixel = new ws281x.Net.Neopixel(ledCount: 24, pin: 18);
+        var neopixel = new ws281x.Net.Neopixel(ledCount: 24, pin: 18, stripType: rpi_ws281x.WS2812_STRIP);
 
         // Always initialize the wrapper first
         neopixel.Begin();
