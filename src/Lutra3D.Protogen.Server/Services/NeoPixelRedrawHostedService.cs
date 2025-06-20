@@ -1,23 +1,29 @@
 ﻿using Microsoft.Extensions.Hosting;
-using rpi_ws281x;
 using System.Drawing;
 
 namespace Lutra3D.Protogen.Server.Services;
 
-public class NeoPixelRedrawHostedService(WS281x neopixels, ProtogenManager protogenManager) : BackgroundService()
+public class NeoPixelRedrawHostedService(ProtogenManager protogenManager) : BackgroundService()
 {
-    protected async sealed override Task ExecuteAsync(CancellationToken ct)
+    protected override Task ExecuteAsync(CancellationToken ct)
     {
-        await Task.Yield();
+        var neopixel = new ws281x.Net.Neopixel(ledCount: 24, pin: 18);
 
-        var pixel = 0;
-        while (!ct.IsCancellationRequested)
+        // Always initialize the wrapper first
+        neopixel.Begin();
+
+        // Set color of all LEDs to red
+        for (var i = 0; i < neopixel.GetNumberOfPixels(); i++)
         {
-            neopixels.SetLEDColor(0, pixel++, Color.Blue);
-            neopixels.SetLEDColor(0, pixel++, Color.Red);
-            neopixels.Render();
-            pixel %= 25;
+            neopixel.SetPixelColor(i, System.Drawing.Color.Red);
         }
 
+        // Apply changes to the led
+        neopixel.Show();
+
+        // Dispose after use
+        neopixel.Dispose();
+
+        return Task.CompletedTask;
     }
 }

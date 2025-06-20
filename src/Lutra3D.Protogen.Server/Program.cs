@@ -3,7 +3,6 @@ using Lutra3D.Protogen.Server.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using rpi_ws281x;
 using RPiRgbLEDMatrix;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,13 +21,6 @@ builder.Services.AddSingleton((sp) =>
     };
 
     return new RGBLedMatrix(options);
-});
-
-builder.Services.AddSingleton((sp) =>
-{
-    var settings = Settings.CreateDefaultSettings();
-    settings.Channels[0] = new Channel(24, 18, 128, false, StripType.WS2812_STRIP);
-    return new WS281x(settings);
 });
 
 builder.Services.AddSingleton<ProtogenManager>();

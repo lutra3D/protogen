@@ -28,11 +28,11 @@
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
 		<PackageReference Include="Ardalis.ApiEndpoints" Version="4.1.0" />
 		<PackageReference Include="System.Device.Gpio" Version="4.0.1" />
+		<PackageReference Include="ws281x.Net" Version="1.0.6" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Libraries\rpi-rgb-led-matrix\bindings\c#\RPiRgbLEDMatrix.csproj" />
-		<ProjectReference Include="..\Libraries\rpi-ws281x-csharp\src\rpi_ws281x\rpi_ws281x.csproj" />
 	</ItemGroup>
 
 </Project>
