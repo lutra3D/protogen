@@ -3,4 +3,4 @@
 	url = https://github.com/hzeller/rpi-rgb-led-matrix.git
 [submodule "src/Libraries/rpi-ws281x-csharp"]
 	path = src/Libraries/rpi-ws281x-csharp
-	url = https://github.com/rpi-ws281x/rpi-ws281x-csharp.git
+	url = https://github.com/ArcanoxDragon/rpi-ws281x-csharp.git
