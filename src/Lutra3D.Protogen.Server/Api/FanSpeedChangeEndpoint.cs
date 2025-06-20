@@ -1,5 +1,6 @@
 ﻿using Ardalis.ApiEndpoints;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Lutra3D.Protogen.Server.Api;
 

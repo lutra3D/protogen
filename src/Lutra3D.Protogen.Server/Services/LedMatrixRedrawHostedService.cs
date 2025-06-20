@@ -1,4 +1,5 @@
-﻿using RPiRgbLEDMatrix;
+﻿using Microsoft.Extensions.Hosting;
+using RPiRgbLEDMatrix;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Runtime.InteropServices;
 
