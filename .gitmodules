@@ -4,3 +4,6 @@
 [submodule "src/Libraries/rpi-ws281x-csharp"]
 	path = src/Libraries/rpi-ws281x-csharp
 	url = https://github.com/ArcanoxDragon/rpi-ws281x-csharp.git
+[submodule "src/Libraries/rpi_ws281x.Net"]
+	path = src/Libraries/rpi_ws281x.Net
+	url = https://github.com/d8ahazard/rpi_ws281x.Net.git
