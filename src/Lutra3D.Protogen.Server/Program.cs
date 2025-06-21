@@ -3,6 +3,7 @@ using Lutra3D.Protogen.Server.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using rpi_ws281x;
 using RPiRgbLEDMatrix;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,23 +24,29 @@ builder.Services.AddSingleton((sp) =>
     return new RGBLedMatrix(options);
 });
 
-builder.Services.AddSingleton((sp) =>
-{
-    var neopixel = new ws281x.Net.Neopixel(ledCount: 24, pin: 18);
-    neopixel.Begin();
-    return neopixel;
-});
-
-
 builder.Services.AddSingleton<ProtogenManager>();
 builder.Services.AddHostedService<LedMatrixRedrawHostedService>();
 //builder.Services.AddHostedService<FanSpeedService>();
-builder.Services.AddHostedService<NeoPixelRedrawHostedService>();
 
 builder.Services.AddControllers();
 builder.Services.AddLogging();
 
 var app = builder.Build();
+
+Task.Run(async () =>
+{
+    var settings = Settings.CreateDefaultSettings();
+    settings.Channels[0] = new Channel(24, 18, 128, false, StripType.WS2812_STRIP);
+    var neopixel = new WS281x(settings);
+
+    var pixel = 0;
+    while (true)
+    {
+        neopixel.SetLEDColor(0, pixel++, System.Drawing.Color.Red);
+        neopixel.Render();
+        await Task.Delay(200);
+    }
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

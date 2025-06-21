@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lutra3D.Protogen.Server", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rpi_ws281x", "Libraries\rpi-ws281x-csharp\src\rpi_ws281x\rpi_ws281x.csproj", "{D10CA22D-DCCC-FF81-1BEC-AAB4E2AC2D7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ws281x.Net", "Libraries\rpi_ws281x.Net\src\ws281x.Net\ws281x.Net.csproj", "{3EAF7048-A536-435E-A0D8-2F0DBF9288AB}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,10 +35,6 @@ Global
 		{D10CA22D-DCCC-FF81-1BEC-AAB4E2AC2D7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D10CA22D-DCCC-FF81-1BEC-AAB4E2AC2D7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D10CA22D-DCCC-FF81-1BEC-AAB4E2AC2D7A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3EAF7048-A536-435E-A0D8-2F0DBF9288AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3EAF7048-A536-435E-A0D8-2F0DBF9288AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3EAF7048-A536-435E-A0D8-2F0DBF9288AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3EAF7048-A536-435E-A0D8-2F0DBF9288AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,7 +42,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{983B9AED-4923-480E-9231-B552EA726983} = {8EB6FFEA-4F8B-4B19-9732-EA4337D62C9C}
 		{D10CA22D-DCCC-FF81-1BEC-AAB4E2AC2D7A} = {8EB6FFEA-4F8B-4B19-9732-EA4337D62C9C}
-		{3EAF7048-A536-435E-A0D8-2F0DBF9288AB} = {8EB6FFEA-4F8B-4B19-9732-EA4337D62C9C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {09946467-85F2-410E-ADCD-A33FD99B8B6C}
