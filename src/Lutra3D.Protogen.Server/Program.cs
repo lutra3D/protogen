@@ -33,21 +33,6 @@ builder.Services.AddLogging();
 
 var app = builder.Build();
 
-Task.Run(async () =>
-{
-    var settings = Settings.CreateDefaultSettings();
-    settings.Channels[0] = new Channel(24, 18, 128, false, StripType.WS2812_STRIP);
-    var neopixel = new WS281x(settings);
-
-    var pixel = 0;
-    while (true)
-    {
-        neopixel.SetLEDColor(0, pixel++, System.Drawing.Color.Red);
-        neopixel.Render();
-        await Task.Delay(200);
-    }
-});
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -59,4 +44,16 @@ app.UseHttpsRedirection();
 
 app.MapControllers().WithOpenApi();
 
-app.Run();
+Task.Run(() => app.Run());
+
+var settings = Settings.CreateDefaultSettings();
+settings.Channels[0] = new Channel(24, 18, 128, false, StripType.WS2812_STRIP);
+var neopixel = new WS281x(settings);
+
+var pixel = 0;
+while (true)
+{
+    neopixel.SetLEDColor(0, pixel++, System.Drawing.Color.Red);
+    neopixel.Render();
+    await Task.Delay(200);
+}
