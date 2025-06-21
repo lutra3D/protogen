@@ -24,8 +24,15 @@ builder.Services.AddSingleton((sp) =>
     return new RGBLedMatrix(options);
 });
 
+var settings = Settings.CreateDefaultSettings();
+settings.Channels[0] = new Channel(24, 18, 128, false, StripType.WS2812_STRIP);
+var neopixel = new WS281x(settings);
+
+builder.Services.AddSingleton(sp => neopixel);
+
 builder.Services.AddSingleton<ProtogenManager>();
 //builder.Services.AddHostedService<LedMatrixRedrawHostedService>();
+builder.Services.AddHostedService<NeoPixelRedrawHostedService>();
 //builder.Services.AddHostedService<FanSpeedService>();
 
 builder.Services.AddControllers();
@@ -44,16 +51,4 @@ app.UseHttpsRedirection();
 
 app.MapControllers().WithOpenApi();
 
-Task.Run(() => app.Run());
-
-var settings = Settings.CreateDefaultSettings();
-settings.Channels[0] = new Channel(24, 18, 128, false, StripType.WS2812_STRIP);
-var neopixel = new WS281x(settings);
-
-var pixel = 0;
-while (true)
-{
-    neopixel.SetLEDColor(0, pixel++, System.Drawing.Color.Red);
-    neopixel.Render();
-    await Task.Delay(200);
-}
+app.Run();
