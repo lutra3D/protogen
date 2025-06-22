@@ -13,7 +13,7 @@ public class NeoPixelRedrawHostedService(ProtogenManager protogenManager, WS281x
         while (!ct.IsCancellationRequested)
         {
             // Set color of all LEDs to red
-            neopixel.SetLEDColor(0, pixel++, System.Drawing.Color.Red);
+            neopixel.SetLEDColor(1, pixel++, System.Drawing.Color.Red);
             neopixel.Render();
             pixel %= 25;
             await Task.Delay(200);

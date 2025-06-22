@@ -25,7 +25,7 @@ builder.Services.AddSingleton((sp) =>
 });
 
 var settings = Settings.CreateDefaultSettings();
-settings.Channels[0] = new Channel(24, 19, 128, false, StripType.WS2812_STRIP);
+settings.Channels[1] = new Channel(24, 19, 128, false, StripType.WS2812_STRIP);
 var neopixel = new WS281x(settings);
 
 builder.Services.AddSingleton(sp => neopixel);
