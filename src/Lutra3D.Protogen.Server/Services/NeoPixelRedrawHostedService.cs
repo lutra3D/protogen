@@ -18,7 +18,7 @@ public class NeoPixelRedrawHostedService(ProtogenManager protogenManager, WS281x
 
             if(image.Pixels.Length == 0) { return; }
             frame++;
-            frame %= image.Width;
+            frame %= image.Height;
 
             for (var pixelIndex = 0; pixelIndex < neopixel.Settings.Channels[LedChannel].LEDCount; pixelIndex++)
             {
