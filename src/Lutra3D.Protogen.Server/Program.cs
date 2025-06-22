@@ -32,7 +32,7 @@ var neopixel = new WS281x(settings);
 builder.Services.AddSingleton(sp => neopixel);
 
 builder.Services.AddSingleton<ProtogenManager>();
-//builder.Services.AddHostedService<LedMatrixRedrawHostedService>();
+builder.Services.AddHostedService<LedMatrixRedrawHostedService>();
 builder.Services.AddHostedService<NeoPixelRedrawHostedService>();
 //builder.Services.AddHostedService<FanSpeedService>();
 
