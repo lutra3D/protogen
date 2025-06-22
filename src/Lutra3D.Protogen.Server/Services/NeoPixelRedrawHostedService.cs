@@ -26,7 +26,7 @@ public class NeoPixelRedrawHostedService(ProtogenManager protogenManager, WS281x
 
                 neopixel.SetLEDColor(LedChannel, pixelIndex, Color.FromArgb(pixel.R, pixel.G, pixel.B));
             }
-
+            neopixel.Render();
             await Task.Delay(200, ct);
         }
     }
