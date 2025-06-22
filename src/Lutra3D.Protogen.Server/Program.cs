@@ -18,14 +18,15 @@ builder.Services.AddSingleton((sp) =>
         ChainLength = 2,
         Parallel = 1,
         Cols = 64,
-        HardwareMapping = "adafruit-hat"
+        HardwareMapping = "adafruit-hat",
+        LimitRefreshRateHz = 100
     };
 
     return new RGBLedMatrix(options);
 });
 
 var settings = Settings.CreateDefaultSettings();
-settings.Channels[1] = new Channel(24, 19, 128, false, StripType.WS2812_STRIP);
+settings.Channels[NeoPixelRedrawHostedService.LedChannel] = new Channel(24, 19, 128, false, StripType.WS2812_STRIP);
 var neopixel = new WS281x(settings);
 
 builder.Services.AddSingleton(sp => neopixel);
