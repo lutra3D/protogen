@@ -63,9 +63,9 @@ public class ProtogenManager : IDisposable
         await ConcurencySemaphore.WaitAsync(cancellationToken);
         try
         {
-            var pixels = new Span<Rgb24>();
-            CurrentSidesImage.CopyPixelDataTo(pixels);
-            return new PixelImage(CurrentSidesImage.Width, CurrentSidesImage.Height, [.. pixels]);
+           var pixelData = new Rgb24[CurrentSidesImage.Width * CurrentSidesImage.Height];
+            CurrentSidesImage.CopyPixelDataTo(pixelData.AsSpan());
+            return new PixelImage(CurrentSidesImage.Width, CurrentSidesImage.Height, [.. pixelData]);
         }
         finally
         {
