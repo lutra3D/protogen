@@ -15,6 +15,8 @@ public class NeoPixelRedrawHostedService(ProtogenManager protogenManager, WS281x
         while (!ct.IsCancellationRequested)
         {
             var image = await protogenManager.GetSidesPixelAsync(ct);
+
+            if(image.Pixels.Length == 0) { return; }
             frame++;
             frame %= image.Width;
 
