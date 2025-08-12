@@ -34,7 +34,7 @@ builder.Services.AddSingleton(sp => neopixel);
 builder.Services.AddSingleton<ProtogenManager>();
 builder.Services.AddHostedService<LedMatrixRedrawHostedService>();
 builder.Services.AddHostedService<NeoPixelRedrawHostedService>();
-//builder.Services.AddHostedService<FanSpeedService>();
+builder.Services.AddHostedService<FanSpeedService>();
 
 builder.Services.AddControllers();
 builder.Services.AddLogging();
