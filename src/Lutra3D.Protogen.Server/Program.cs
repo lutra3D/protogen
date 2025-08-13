@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using rpi_ws281x;
 using RPiRgbLEDMatrix;
+using System.Device.Pwm;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +30,10 @@ var settings = Settings.CreateDefaultSettings();
 settings.Channels[NeoPixelRedrawHostedService.LedChannel] = new Channel(24, 19, 128, false, StripType.WS2812_STRIP);
 var neopixel = new WS281x(settings);
 
+using var pwmChannel = PwmChannel.Create(0, 0, frequency: 25000, dutyCyclePercentage: 0.5);
+
 builder.Services.AddSingleton(sp => neopixel);
+builder.Services.AddSingleton(sp => pwmChannel);
 
 builder.Services.AddSingleton<ProtogenManager>();
 builder.Services.AddHostedService<LedMatrixRedrawHostedService>();
