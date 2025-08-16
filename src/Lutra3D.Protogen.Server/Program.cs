@@ -27,7 +27,7 @@ builder.Services.AddSingleton((sp) =>
 });
 
 var settings = Settings.CreateDefaultSettings();
-settings.Channels[NeoPixelRedrawHostedService.LedChannel] = new Channel(24, 19, 128, false, StripType.WS2812_STRIP);
+settings.AddController(24, Pin.Gpio10, StripType.WS2812_STRIP, ControllerType.SPI,  128, false);
 var neopixel = new WS281x(settings);
 
 using var pwmChannel = PwmChannel.Create(0, 0, frequency: 25000, dutyCyclePercentage: 0.5);

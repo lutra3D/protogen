@@ -20,11 +20,12 @@ public class NeoPixelRedrawHostedService(ProtogenManager protogenManager, WS281x
             frame++;
             frame %= image.Height;
 
-            for (var pixelIndex = 0; pixelIndex < neopixel.Settings.Channels[LedChannel].LEDCount; pixelIndex++)
+            var controller = neopixel.GetController(ControllerType.SPI);
+            for (var pixelIndex = 0; pixelIndex < controller.LEDCount; pixelIndex++)
             {
                 var pixel = image.Pixels.ElementAtOrDefault(pixelIndex + frame * image.Width);
 
-                neopixel.SetLEDColor(LedChannel, pixelIndex, Color.FromArgb(pixel.R, pixel.G, pixel.B));
+                controller.SetLED(pixelIndex, Color.FromArgb(pixel.R, pixel.G, pixel.B));
             }
             neopixel.Render();
             await Task.Delay(200, ct);
